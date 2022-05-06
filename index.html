@@ -304,6 +304,185 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/06/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wcf">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/05/06/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/" itemprop="url">不可变对象</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-06T18:25:55+08:00">
+                2022-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h1><h3 id="不可变对象需要满足的条件"><a href="#不可变对象需要满足的条件" class="headerlink" title="不可变对象需要满足的条件"></a>不可变对象需要满足的条件</h3><ol>
+<li>对象创建后状态不能修改</li>
+<li>对象所有域都是final类型</li>
+<li>对象是正确创建的（对象创建期间，this引用没有逸出）（完全没理解这是啥意思）</li>
+</ol>
+<h3 id="关键字final"><a href="#关键字final" class="headerlink" title="关键字final"></a>关键字final</h3><ol>
+<li><p>final 修饰类  类不能被继承</p>
+</li>
+<li><p>final 修饰方法 1.锁定的方法不能被继承类重写修改 2. 效率（早期会提升效率最近版本已经没用了）</p>
+</li>
+<li><p>final 修饰变量 基本数据的变量修饰后不能被修改 ， 引用类被修饰后不能指向新的对象</p>
+<p>主要注意修饰引用类的时候 是可以修改类中变量的数值 </p>
+<p>例修饰map</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以进行的操作</span></span><br><span class="line">map.put(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">  <span class="comment">//不可以进行的操作</span></span><br><span class="line">  map=Maps.newHashMap();</span><br></pre></td></tr></table></figure>
+
+<h3 id="不使用final定义不可变对象"><a href="#不使用final定义不可变对象" class="headerlink" title="不使用final定义不可变对象"></a>不使用final定义不可变对象</h3><h4 id="1-Collections-unmodifiable"><a href="#1-Collections-unmodifiable" class="headerlink" title="1. Collections.unmodifiable***"></a>1. Collections.unmodifiable***</h4><p>例map</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalExample</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//    private   final  static  Integer aaa=0;</span></span><br><span class="line"><span class="comment">//    private  final  static  String  q=&quot;&quot;;</span></span><br><span class="line">    <span class="keyword">private</span>    <span class="keyword">static</span> Map&lt;Integer,Integer&gt; map = Maps.newHashMap();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"><span class="comment">//        q=&quot;&quot;;</span></span><br><span class="line"><span class="comment">//        aaa=1;</span></span><br><span class="line">        Map&lt;Integer, Integer&gt; integerIntegerMap = Collections.unmodifiableMap(map);</span><br><span class="line">        integerIntegerMap.put(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.lang.UnsupportedOperationException</span><br><span class="line">	at java.util.Collections$UnmodifiableMap.put(Collections.java:<span class="number">1459</span>)</span><br><span class="line">	at com.imooc.concurrency.example.immutable.FinalExample.main(FinalExample.java:<span class="number">18</span>)</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"> 翻看unmodifiableMap源码看到他的put方法的实现</span><br><span class="line">         <span class="keyword">public</span> V <span class="title function_">put</span><span class="params">(K key, V value)</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>不光是put 所有能修改的map中值的方法都被直接抛出异常</p>
+<h4 id="2-google-guava-包提供的immutable"><a href="#2-google-guava-包提供的immutable" class="headerlink" title="2. google guava 包提供的immutable***"></a>2. google guava 包提供的immutable***</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span>  <span class="keyword">static</span> ImmutableList list= ImmutableList.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        list.add(<span class="number">123</span>);<span class="comment">//这里的add方法会有横线表示为不推荐使用</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.lang.UnsupportedOperationException</span><br><span class="line">	at com.google.common.collect.ImmutableCollection.add(ImmutableCollection.java:<span class="number">220</span>)</span><br><span class="line">	at com.imooc.concurrency.example.immutable.FinalExample.main(FinalExample.java:<span class="number">24</span>)</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  add方法的实现</span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Deprecated</span></span><br><span class="line">    <span class="meta">@CanIgnoreReturnValue</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>两种方法的对于put add这些方法的实现 很相似 都是直接抛出异常</p>
+<p>​</p>
+<p>​</p>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>多线程开发中如果对象条件允许设置为不可变对象，尽量把对象设置为不可变对象，避免出现线程安全问题</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/01/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%85%B3%E7%B3%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1430,7 +1609,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

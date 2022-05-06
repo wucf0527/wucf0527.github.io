@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="多线程," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -81,17 +81,17 @@
 
 
 
-<meta name="description" content="简介（网络摘录）​    在计算机科学中，比较和交换（Conmpare And Swap）是用于实现多线程同步的原子指令。它将内存位置的内容与给定值进行比较，只有在相同的情况下，将该内存位置的内容修改为新的给定值。这是作为单个原子操作完成的。 原子性保证新值基于最新信息计算; 如果该值在同一时间被另一个线程更新，则写入将失败。操作结果必须说明是否进行替换; 这可以通过一个简单的布尔响应（这个变体通">
+<meta name="description" content="不可变对象不可变对象需要满足的条件 对象创建后状态不能修改 对象所有域都是final类型 对象是正确创建的（对象创建期间，this引用没有逸出）（完全没理解这是啥意思）  关键字final final 修饰类  类不能被继承  final 修饰方法 1.锁定的方法不能被继承类重写修改 2. 效率（早期会提升效率最近版本已经没用了）  final 修饰变量 基本数据的变量修饰后不能被修改 ， 引用类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CAS(ConmpareAndSwap)">
-<meta property="og:url" content="http://example.com/2022/02/18/CAS-ConmpareAndSwap/index.html">
+<meta property="og:title" content="不可变对象">
+<meta property="og:url" content="http://example.com/2022/05/06/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/index.html">
 <meta property="og:site_name" content="wcf">
-<meta property="og:description" content="简介（网络摘录）​    在计算机科学中，比较和交换（Conmpare And Swap）是用于实现多线程同步的原子指令。它将内存位置的内容与给定值进行比较，只有在相同的情况下，将该内存位置的内容修改为新的给定值。这是作为单个原子操作完成的。 原子性保证新值基于最新信息计算; 如果该值在同一时间被另一个线程更新，则写入将失败。操作结果必须说明是否进行替换; 这可以通过一个简单的布尔响应（这个变体通">
+<meta property="og:description" content="不可变对象不可变对象需要满足的条件 对象创建后状态不能修改 对象所有域都是final类型 对象是正确创建的（对象创建期间，this引用没有逸出）（完全没理解这是啥意思）  关键字final final 修饰类  类不能被继承  final 修饰方法 1.锁定的方法不能被继承类重写修改 2. 效率（早期会提升效率最近版本已经没用了）  final 修饰变量 基本数据的变量修饰后不能被修改 ， 引用类">
 <meta property="og:locale">
-<meta property="article:published_time" content="2022-02-18T06:59:30.000Z">
-<meta property="article:modified_time" content="2022-02-18T07:25:28.001Z">
+<meta property="article:published_time" content="2022-05-06T10:25:55.000Z">
+<meta property="article:modified_time" content="2022-05-06T10:27:39.608Z">
 <meta property="article:author" content="wucf">
-<meta property="article:tag" content="多线程">
+<meta property="article:tag" content="123123">
 <meta name="twitter:card" content="summary">
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2022/02/18/CAS-ConmpareAndSwap/"/>
+  <link rel="canonical" href="http://example.com/2022/05/06/不可变对象/"/>
 
 
 
 
 
-  <title>CAS(ConmpareAndSwap) | wcf</title>
+  <title>不可变对象 | wcf</title>
   
 
 
@@ -305,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/18/CAS-ConmpareAndSwap/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/06/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -322,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CAS(ConmpareAndSwap)</h1>
+          <h1 class="post-title" itemprop="name headline">不可变对象</h1>
         
 
         <div class="post-meta">
@@ -334,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-18T14:59:30+08:00">
-                2022-02-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-06T18:25:55+08:00">
+                2022-05-06
               </time>
             
 
@@ -405,31 +405,33 @@
       
 
       
-        <h5 id="简介（网络摘录）"><a href="#简介（网络摘录）" class="headerlink" title="简介（网络摘录）"></a>简介（网络摘录）</h5><p>​    在计算机科学中，比较和交换（Conmpare And Swap）是用于实现多线程同步的原子指令。它将内存位置的内容与给定值进行比较，只有在相同的情况下，将该内存位置的内容修改为新的给定值。这是作为单个原子操作完成的。 原子性保证新值基于最新信息计算; 如果该值在同一时间被另一个线程更新，则写入将失败。操作结果必须说明是否进行替换; 这可以通过一个简单的布尔响应（这个变体通常称为比较和设置），或通过返回从内存位置读取的值来完成。</p>
-<p>​    CAS 操作包含三个操作数 —— 内存位置（V）、预期原值（A）和新值(B)。 如果内存位置的值与预期原值相匹配，那么处理器会自动将该位置值更新为新值 。否则，处理器不做任何操作。无论哪种情况，它都会在 CAS 指令之前返回该 位置的值。（在 CAS 的一些特殊情况下将仅返回 CAS 是否成功，而不提取当前 值。）CAS 有效地说明了“我认为位置 V 应该包含值 A；如果包含该值，则将 B 放到这个位置；否则，不要更改该位置，只告诉我这个位置现在的值即可。”</p>
-<p>​    通常将 CAS 用于同步的方式是从地址 V 读取值 A，执行多步计算来获得新 值 B，然后使用 CAS 将 V 的值从 A 改为 B。如果 V 处的值尚未同时更改，则 CAS 操作成功。</p>
-<p>​    类似于 CAS 的指令允许算法执行读-修改-写操作，而无需害怕其他线程同时 修改变量，因为如果其他线程修改变量，那么 CAS 会检测它（并失败），算法 可以对该操作重新计算。</p>
-<h4 id="CAS的问题"><a href="#CAS的问题" class="headerlink" title="CAS的问题"></a>CAS的问题</h4><ol>
-<li><strong>ABA问题</strong>。因为CAS需要在操作值的时候检查下值有没有发生变化，如果没有发生变化则更新，但是如果一个值原来是A，变成了B，又变成了A，那么使用CAS进行检查时会发现它的值没有发生变化，但是实际上却变化了。ABA问题的解决思路就是使用版本号。在变量前面追加上版本号，每次变量更新的时候把版本号加一，那么A－B－A 就会变成1A-2B－3A。</li>
+        <h1 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h1><h3 id="不可变对象需要满足的条件"><a href="#不可变对象需要满足的条件" class="headerlink" title="不可变对象需要满足的条件"></a>不可变对象需要满足的条件</h3><ol>
+<li>对象创建后状态不能修改</li>
+<li>对象所有域都是final类型</li>
+<li>对象是正确创建的（对象创建期间，this引用没有逸出）（完全没理解这是啥意思）</li>
 </ol>
-<p><strong>从Java1</strong>.5开始JDK的atomic包里提供了一个类AtomicStampedReference来解决ABA问题。这个类的compareAndSet方法作用是首先检查当前引用是否等于预期引用，并且当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。</p>
-<p>关于ABA问题参考文档: <a target="_blank" rel="noopener" href="http://blog.hesey.net/2011/09/resolve-aba-by-atomicstampedreference.html">http://blog.hesey.net/2011/09/resolve-aba-by-atomicstampedreference.html</a></p>
-<p><strong>2. 循环时间长开销大</strong>。自旋CAS如果长时间不成功，会给CPU带来非常大的执行开销。如果JVM能支持处理器提供的pause指令那么效率会有一定的提升，pause指令有两个作用，第一它可以延迟流水线执行指令（de-pipeline）,使CPU不会消耗过多的执行资源，延迟的时间取决于具体实现的版本，在一些处理器上延迟时间是零。第二它可以避免在退出循环的时候因内存顺序冲突（memory order violation）而引起CPU流水线被清空（CPU pipeline flush），从而提高CPU的执行效率。</p>
-<p><strong>3. 只能保证一个共享变量的原子操作</strong>。当对一个共享变量执行操作时，我们可以使用循环CAS的方式来保证原子操作，但是对多个共享变量操作时，循环CAS就无法保证操作的原子性，这个时候就可以用锁，或者有一个取巧的办法，就是把多个共享变量合并成一个共享变量来操作。比如有两个共享变量i＝2,j&#x3D;a，合并一下ij&#x3D;2a，然后用CAS来操作ij。从Java1.5开始JDK提供了<strong>AtomicReference类来保证引用对象之间的原子性，你可以把多个变量放在一个对象里来进行CAS操作。</strong></p>
-<h3 id="Java中CAS的实现（学习总结）"><a href="#Java中CAS的实现（学习总结）" class="headerlink" title="Java中CAS的实现（学习总结）"></a>Java中CAS的实现（学习总结）</h3><h4 id="atomic"><a href="#atomic" class="headerlink" title="atomic"></a>atomic</h4><p>说到java中的cas不得不提atomic</p>
-<p>以atomic中的AtomicInteger中的incrementAndGet方法为例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">incrementAndGet</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="keyword">return</span> unsafe.getAndAddInt(<span class="built_in">this</span>, valueOffset, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line"> &#125;    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">getAndAddInt</span><span class="params">(Object var1, <span class="type">long</span> var2, <span class="type">int</span> var4)</span> &#123;</span><br><span class="line">        <span class="type">int</span> var5;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            var5 = <span class="built_in">this</span>.getIntVolatile(var1, var2);</span><br><span class="line">        &#125; <span class="keyword">while</span>(!<span class="built_in">this</span>.compareAndSwapInt(var1, var2, var5, var5 + var4));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> var5;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="关键字final"><a href="#关键字final" class="headerlink" title="关键字final"></a>关键字final</h3><ol>
+<li><p>final 修饰类  类不能被继承</p>
+</li>
+<li><p>final 修饰方法 1.锁定的方法不能被继承类重写修改 2. 效率（早期会提升效率最近版本已经没用了）</p>
+</li>
+<li><p>final 修饰变量 基本数据的变量修饰后不能被修改 ， 引用类被修饰后不能指向新的对象</p>
+<p>主要注意修饰引用类的时候 是可以修改类中变量的数值 </p>
+<p>例修饰map</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以进行的操作</span></span><br><span class="line">map.put(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">  <span class="comment">//不可以进行的操作</span></span><br><span class="line">  map=Maps.newHashMap();</span><br></pre></td></tr></table></figure>
 
-<p>主要看unsafe的getAndAddInt方法的实现</p>
-<p>var1 为当前atomicInteger    var2为当前值    var5为底层值  var4为更新量</p>
-<p>可以看到循环 会不停的从底层取出最新的var5和var2对比 当</p>
-<p>var5&#x3D;var2时 才会执行更新操作var5+var4</p>
-<p>保证了原子性</p>
-<h4 id="如何解决cas的aba问题"><a href="#如何解决cas的aba问题" class="headerlink" title="如何解决cas的aba问题"></a>如何解决cas的aba问题</h4><p>atomic中AtomicStampedReference 解决了这个问题</p>
-<p>为每一步修改操作加上版本号，比如原数据为0 版本号为0</p>
-<p>一个线程修改原数据为1 后 版本号也为1 再把原数据修改成0 版本号却变成了2</p>
-<p>另一个线程通过cas对比后虽然数据还是0但是版本号已经改变了</p>
-<p>这样就避免了aba问题</p>
+<h3 id="不使用final定义不可变对象"><a href="#不使用final定义不可变对象" class="headerlink" title="不使用final定义不可变对象"></a>不使用final定义不可变对象</h3><h4 id="1-Collections-unmodifiable"><a href="#1-Collections-unmodifiable" class="headerlink" title="1. Collections.unmodifiable***"></a>1. Collections.unmodifiable***</h4><p>例map</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalExample</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//    private   final  static  Integer aaa=0;</span></span><br><span class="line"><span class="comment">//    private  final  static  String  q=&quot;&quot;;</span></span><br><span class="line">    <span class="keyword">private</span>    <span class="keyword">static</span> Map&lt;Integer,Integer&gt; map = Maps.newHashMap();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"><span class="comment">//        q=&quot;&quot;;</span></span><br><span class="line"><span class="comment">//        aaa=1;</span></span><br><span class="line">        Map&lt;Integer, Integer&gt; integerIntegerMap = Collections.unmodifiableMap(map);</span><br><span class="line">        integerIntegerMap.put(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.lang.UnsupportedOperationException</span><br><span class="line">	at java.util.Collections$UnmodifiableMap.put(Collections.java:<span class="number">1459</span>)</span><br><span class="line">	at com.imooc.concurrency.example.immutable.FinalExample.main(FinalExample.java:<span class="number">18</span>)</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"> 翻看unmodifiableMap源码看到他的put方法的实现</span><br><span class="line">         <span class="keyword">public</span> V <span class="title function_">put</span><span class="params">(K key, V value)</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>不光是put 所有能修改的map中值的方法都被直接抛出异常</p>
+<h4 id="2-google-guava-包提供的immutable"><a href="#2-google-guava-包提供的immutable" class="headerlink" title="2. google guava 包提供的immutable***"></a>2. google guava 包提供的immutable***</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span>  <span class="keyword">static</span> ImmutableList list= ImmutableList.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        list.add(<span class="number">123</span>);<span class="comment">//这里的add方法会有横线表示为不推荐使用</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.lang.UnsupportedOperationException</span><br><span class="line">	at com.google.common.collect.ImmutableCollection.add(ImmutableCollection.java:<span class="number">220</span>)</span><br><span class="line">	at com.imooc.concurrency.example.immutable.FinalExample.main(FinalExample.java:<span class="number">24</span>)</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  add方法的实现</span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Deprecated</span></span><br><span class="line">    <span class="meta">@CanIgnoreReturnValue</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>两种方法的对于put add这些方法的实现 很相似 都是直接抛出异常</p>
+<p>​</p>
+<p>​</p>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>多线程开发中如果对象条件允许设置为不可变对象，尽量把对象设置为不可变对象，避免出现线程安全问题</p>
 
       
     </div>
@@ -445,12 +447,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
-          
-        </div>
-      
 
       
       
@@ -460,8 +456,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/02/16/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="next" title="多线程">
-                <i class="fa fa-chevron-left"></i> 多线程
+              <a href="/2022/03/01/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%85%B3%E7%B3%BB/" rel="next" title="单例模式和线程安全的关系">
+                <i class="fa fa-chevron-left"></i> 单例模式和线程安全的关系
               </a>
             
           </div>
@@ -469,10 +465,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2022/02/19/synchronizd/" rel="prev" title="synchronizd">
-                synchronizd <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -611,7 +603,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B%EF%BC%88%E7%BD%91%E7%BB%9C%E6%91%98%E5%BD%95%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">简介（网络摘录）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CAS%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number"></span> <span class="nav-text">CAS的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E4%B8%ADCAS%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">Java中CAS的实现（学习总结）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#atomic"><span class="nav-number"></span> <span class="nav-text">atomic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3cas%E7%9A%84aba%E9%97%AE%E9%A2%98"><span class="nav-number"></span> <span class="nav-text">如何解决cas的aba问题</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">不可变对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E9%9C%80%E8%A6%81%E6%BB%A1%E8%B6%B3%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.0.1.</span> <span class="nav-text">不可变对象需要满足的条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97final"><span class="nav-number">1.0.2.</span> <span class="nav-text">关键字final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E4%BD%BF%E7%94%A8final%E5%AE%9A%E4%B9%89%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.0.3.</span> <span class="nav-text">不使用final定义不可变对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Collections-unmodifiable"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">1. Collections.unmodifiable***</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-google-guava-%E5%8C%85%E6%8F%90%E4%BE%9B%E7%9A%84immutable"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">2. google guava 包提供的immutable***</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.0.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
