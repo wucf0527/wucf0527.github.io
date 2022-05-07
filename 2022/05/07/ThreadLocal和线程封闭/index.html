@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="多线程," />
 
 
 
@@ -81,17 +81,17 @@
 
 
 
-<meta name="description" content="不可变对象不可变对象需要满足的条件 对象创建后状态不能修改 对象所有域都是final类型 对象是正确创建的（对象创建期间，this引用没有逸出）（完全没理解这是啥意思）  关键字final final 修饰类  类不能被继承  final 修饰方法 1.锁定的方法不能被继承类重写修改 2. 效率（早期会提升效率最近版本已经没用了）  final 修饰变量 基本数据的变量修饰后不能被修改 ， 引用类">
+<meta name="description" content="线程封闭当访问共享变量时，往往需要加锁来保证数据同步。一种避免使用同步的方式就是不共享数据。如果仅在单线程中访问数据，就不需要同步了。这种技术称为线程封闭。在Java语言中，提供了一些类库和机制来维护线程的封闭性，例如局部变量和ThreadLocal类  Ad-hoc 线程封闭程序控制实现，比较脆弱，尽量少用 堆栈封闭：局部变量，无并发问题，在项目中使用最多，简单说就是局部变量，方法的变量都拷贝到">
 <meta property="og:type" content="article">
-<meta property="og:title" content="不可变对象">
-<meta property="og:url" content="http://example.com/2022/05/06/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:title" content="ThreadLocal和线程封闭">
+<meta property="og:url" content="http://example.com/2022/05/07/ThreadLocal%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%B0%81%E9%97%AD/index.html">
 <meta property="og:site_name" content="wcf">
-<meta property="og:description" content="不可变对象不可变对象需要满足的条件 对象创建后状态不能修改 对象所有域都是final类型 对象是正确创建的（对象创建期间，this引用没有逸出）（完全没理解这是啥意思）  关键字final final 修饰类  类不能被继承  final 修饰方法 1.锁定的方法不能被继承类重写修改 2. 效率（早期会提升效率最近版本已经没用了）  final 修饰变量 基本数据的变量修饰后不能被修改 ， 引用类">
+<meta property="og:description" content="线程封闭当访问共享变量时，往往需要加锁来保证数据同步。一种避免使用同步的方式就是不共享数据。如果仅在单线程中访问数据，就不需要同步了。这种技术称为线程封闭。在Java语言中，提供了一些类库和机制来维护线程的封闭性，例如局部变量和ThreadLocal类  Ad-hoc 线程封闭程序控制实现，比较脆弱，尽量少用 堆栈封闭：局部变量，无并发问题，在项目中使用最多，简单说就是局部变量，方法的变量都拷贝到">
 <meta property="og:locale">
-<meta property="article:published_time" content="2022-05-06T10:25:55.000Z">
-<meta property="article:modified_time" content="2022-05-06T10:27:39.608Z">
+<meta property="article:published_time" content="2022-05-07T09:48:34.000Z">
+<meta property="article:modified_time" content="2022-05-07T10:16:26.175Z">
 <meta property="article:author" content="wucf">
-<meta property="article:tag" content="123123">
+<meta property="article:tag" content="多线程">
 <meta name="twitter:card" content="summary">
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2022/05/06/不可变对象/"/>
+  <link rel="canonical" href="http://example.com/2022/05/07/ThreadLocal和线程封闭/"/>
 
 
 
 
 
-  <title>不可变对象 | wcf</title>
+  <title>ThreadLocal和线程封闭 | wcf</title>
   
 
 
@@ -305,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/06/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/07/ThreadLocal%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%B0%81%E9%97%AD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -322,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">不可变对象</h1>
+          <h1 class="post-title" itemprop="name headline">ThreadLocal和线程封闭</h1>
         
 
         <div class="post-meta">
@@ -334,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-06T18:25:55+08:00">
-                2022-05-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-07T17:48:34+08:00">
+                2022-05-07
               </time>
             
 
@@ -405,33 +405,36 @@
       
 
       
-        <h1 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h1><h3 id="不可变对象需要满足的条件"><a href="#不可变对象需要满足的条件" class="headerlink" title="不可变对象需要满足的条件"></a>不可变对象需要满足的条件</h3><ol>
-<li>对象创建后状态不能修改</li>
-<li>对象所有域都是final类型</li>
-<li>对象是正确创建的（对象创建期间，this引用没有逸出）（完全没理解这是啥意思）</li>
+        <h2 id="线程封闭"><a href="#线程封闭" class="headerlink" title="线程封闭"></a>线程封闭</h2><p>当访问共享变量时，往往需要加锁来保证数据同步。一种避免使用同步的方式就是不共享数据。如果仅在单线程中访问数据，就不需要同步了。这种技术称为线程封闭。在Java语言中，提供了一些类库和机制来维护线程的封闭性，例如局部变量和ThreadLocal类</p>
+<ol>
+<li>Ad-hoc 线程封闭程序控制实现，比较脆弱，尽量少用</li>
+<li>堆栈封闭：局部变量，无并发问题，在项目中使用最多，简单说就是局部变量，方法的变量都拷贝到线程的堆栈中，只有这个线程能访问到。尽量少使用全局变量（变量不是常量）（平时写接口大部分都是这种方式，都是局部变量）</li>
+<li>ThreadLocal线程封闭：比较好的封闭方法</li>
 </ol>
-<h3 id="关键字final"><a href="#关键字final" class="headerlink" title="关键字final"></a>关键字final</h3><ol>
-<li><p>final 修饰类  类不能被继承</p>
+<h2 id="ThreadLocal（线程变量）类"><a href="#ThreadLocal（线程变量）类" class="headerlink" title="ThreadLocal（线程变量）类"></a>ThreadLocal（线程变量）类</h2><p>threadLocal 类简单理解就是，threadLocal中存入的变量只有当前线程可以存取，对于其他线程来说是隔离的，ThreadLocal为每个变量都创建了一个副本，每个变量访问自己变量的副本。</p>
+<h3 id="ThreadLocal的简单使用"><a href="#ThreadLocal的简单使用" class="headerlink" title="ThreadLocal的简单使用"></a>ThreadLocal的简单使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span>  <span class="keyword">static</span>  ThreadLocal&lt;Long&gt; threadLocal = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(Long id)</span>&#123;</span><br><span class="line">        threadLocal.set(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span>  <span class="keyword">static</span> Long  <span class="title function_">get</span><span class="params">()</span>&#123;</span><br><span class="line">     <span class="keyword">return</span>   threadLocal.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span>  <span class="title function_">remove</span><span class="params">()</span>&#123;</span><br><span class="line">        threadLocal.remove();</span><br><span class="line">    &#125;</span><br><span class="line">使用很简单主要看关键方法的实现	</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">get实现</span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">get</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">ThreadLocalMap</span> <span class="variable">map</span> <span class="operator">=</span> getMap(t);</span><br><span class="line">        <span class="keyword">if</span> (map != <span class="literal">null</span>) &#123;</span><br><span class="line">            ThreadLocalMap.<span class="type">Entry</span> <span class="variable">e</span> <span class="operator">=</span> map.getEntry(<span class="built_in">this</span>);</span><br><span class="line">            <span class="keyword">if</span> (e != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">                <span class="type">T</span> <span class="variable">result</span> <span class="operator">=</span> (T)e.value;</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> setInitialValue();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">set实现</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(T value)</span> &#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t</span> <span class="operator">=</span> Thread.currentThread();</span><br><span class="line">        <span class="type">ThreadLocalMap</span> <span class="variable">map</span> <span class="operator">=</span> getMap(t);</span><br><span class="line">        <span class="keyword">if</span> (map != <span class="literal">null</span>)</span><br><span class="line">            map.set(<span class="built_in">this</span>, value);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            createMap(t, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看到每次getset都是会先获取当前线程</p>
+<p>存储关键的ThreadLocalMap 也都是对当前线程进行的存取操作</p>
+<p>保证了存储的数据对于每个线程的独立性</p>
+<h3 id="ThreadLocal使用场景"><a href="#ThreadLocal使用场景" class="headerlink" title="ThreadLocal使用场景"></a>ThreadLocal使用场景</h3><ol>
+<li><p>每个线程需要有自己单独的实例</p>
 </li>
-<li><p>final 修饰方法 1.锁定的方法不能被继承类重写修改 2. 效率（早期会提升效率最近版本已经没用了）</p>
-</li>
-<li><p>final 修饰变量 基本数据的变量修饰后不能被修改 ， 引用类被修饰后不能指向新的对象</p>
-<p>主要注意修饰引用类的时候 是可以修改类中变量的数值 </p>
-<p>例修饰map</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以进行的操作</span></span><br><span class="line">map.put(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">  <span class="comment">//不可以进行的操作</span></span><br><span class="line">  map=Maps.newHashMap();</span><br></pre></td></tr></table></figure>
-
-<h3 id="不使用final定义不可变对象"><a href="#不使用final定义不可变对象" class="headerlink" title="不使用final定义不可变对象"></a>不使用final定义不可变对象</h3><h4 id="1-Collections-unmodifiable"><a href="#1-Collections-unmodifiable" class="headerlink" title="1. Collections.unmodifiable***"></a>1. Collections.unmodifiable***</h4><p>例map</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalExample</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//    private   final  static  Integer aaa=0;</span></span><br><span class="line"><span class="comment">//    private  final  static  String  q=&quot;&quot;;</span></span><br><span class="line">    <span class="keyword">private</span>    <span class="keyword">static</span> Map&lt;Integer,Integer&gt; map = Maps.newHashMap();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"><span class="comment">//        q=&quot;&quot;;</span></span><br><span class="line"><span class="comment">//        aaa=1;</span></span><br><span class="line">        Map&lt;Integer, Integer&gt; integerIntegerMap = Collections.unmodifiableMap(map);</span><br><span class="line">        integerIntegerMap.put(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.lang.UnsupportedOperationException</span><br><span class="line">	at java.util.Collections$UnmodifiableMap.put(Collections.java:<span class="number">1459</span>)</span><br><span class="line">	at com.imooc.concurrency.example.immutable.FinalExample.main(FinalExample.java:<span class="number">18</span>)</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"> 翻看unmodifiableMap源码看到他的put方法的实现</span><br><span class="line">         <span class="keyword">public</span> V <span class="title function_">put</span><span class="params">(K key, V value)</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>不光是put 所有能修改的map中值的方法都被直接抛出异常</p>
-<h4 id="2-google-guava-包提供的immutable"><a href="#2-google-guava-包提供的immutable" class="headerlink" title="2. google guava 包提供的immutable***"></a>2. google guava 包提供的immutable***</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span>  <span class="keyword">static</span> ImmutableList list= ImmutableList.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        list.add(<span class="number">123</span>);<span class="comment">//这里的add方法会有横线表示为不推荐使用</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.lang.UnsupportedOperationException</span><br><span class="line">	at com.google.common.collect.ImmutableCollection.add(ImmutableCollection.java:<span class="number">220</span>)</span><br><span class="line">	at com.imooc.concurrency.example.immutable.FinalExample.main(FinalExample.java:<span class="number">24</span>)</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  add方法的实现</span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Deprecated</span></span><br><span class="line">    <span class="meta">@CanIgnoreReturnValue</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>两种方法的对于put add这些方法的实现 很相似 都是直接抛出异常</p>
-<p>​</p>
+<li><p>有个实例需要在多个方法中使用并且不想被多线程所共享</p>
 <p>​</p>
 </li>
 </ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>多线程开发中如果对象条件允许设置为不可变对象，尽量把对象设置为不可变对象，避免出现线程安全问题</p>
+<p>举个栗子：</p>
+<p>登录的用户信息</p>
+<p>经常会被很多方法中取用</p>
+<p>需要进行很多次参数传递 从controller 到service中再到各个方法</p>
+<p>如果用threadLocal 可以在任何地方调用get方法取得</p>
+<p>还能保证不出现线程不安全的情况。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>今天就没什么总结 </p>
+<p>看了一节课没看懂 又看了好多帖子 才有个一知半解；</p>
+<p>threadLocal经常配合filter和interceptor使用</p>
+<p>学习的时候我发现很久没写这个两个东西 把这两个东西的使用也顺便复习了</p>
+<p>今天收获颇丰</p>
 
       
     </div>
@@ -447,6 +450,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+          
+        </div>
+      
 
       
       
@@ -456,8 +465,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/03/01/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%85%B3%E7%B3%BB/" rel="next" title="单例模式和线程安全的关系">
-                <i class="fa fa-chevron-left"></i> 单例模式和线程安全的关系
+              <a href="/2022/05/06/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/" rel="next" title="不可变对象">
+                <i class="fa fa-chevron-left"></i> 不可变对象
               </a>
             
           </div>
@@ -465,10 +474,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2022/05/07/ThreadLocal%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%B0%81%E9%97%AD/" rel="prev" title="ThreadLocal和线程封闭">
-                ThreadLocal和线程封闭 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -607,7 +612,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">不可变对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E9%9C%80%E8%A6%81%E6%BB%A1%E8%B6%B3%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.0.1.</span> <span class="nav-text">不可变对象需要满足的条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97final"><span class="nav-number">1.0.2.</span> <span class="nav-text">关键字final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E4%BD%BF%E7%94%A8final%E5%AE%9A%E4%B9%89%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.0.3.</span> <span class="nav-text">不使用final定义不可变对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Collections-unmodifiable"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">1. Collections.unmodifiable***</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-google-guava-%E5%8C%85%E6%8F%90%E4%BE%9B%E7%9A%84immutable"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">2. google guava 包提供的immutable***</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.0.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%B0%81%E9%97%AD"><span class="nav-number">1.</span> <span class="nav-text">线程封闭</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal%EF%BC%88%E7%BA%BF%E7%A8%8B%E5%8F%98%E9%87%8F%EF%BC%89%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">ThreadLocal（线程变量）类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">ThreadLocal的简单使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.2.</span> <span class="nav-text">ThreadLocal使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
