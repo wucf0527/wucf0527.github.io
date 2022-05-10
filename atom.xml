@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-05-09T10:39:24.513Z</updated>
+  <updated>2022-05-10T12:05:21.357Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>常用的并发容器的实现和简单理解</title>
+    <link href="http://example.com/2022/05/10/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/"/>
+    <id>http://example.com/2022/05/10/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/</id>
+    <published>2022-05-10T11:40:58.000Z</published>
+    <updated>2022-05-10T12:05:21.357Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="ArrayList–-gt-CopyOnWriteArrayList"><a href="#ArrayList–-gt-CopyOnWriteArrayList" class="headerlink" title="ArrayList–&gt;CopyOnWriteArrayList"></a>ArrayList–&gt;CopyOnWriteArrayList</h2><p>CopyOnWriteArrayList 对一些写操作的实现</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="built_in">this</span>.lock;</span><br><span class="line">lock.lock();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Object[] elements = getArray();</span><br><span class="line">    <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> elements.length;</span><br><span class="line">    Object[] newElements = Arrays.copyOf(elements, len + <span class="number">1</span>);</span><br><span class="line">    newElements[len] = e;</span><br><span class="line">    setArray(newElements);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    lock.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>首先 会复制一份list的复本，然后在复制的list上进行写操作，最后在把旧的list指向copy的副本。</p><p>同时这些方法是被加锁的。</p><p>读写分离的操作保证了线程的安全性</p><p><strong>缺点</strong>：</p><ol><li><strong>内存占用问题</strong> 每次写操作的时候 都会复制一个新的list，这样内存中会有两个对象，如果原list很大占用内存很大，内存的占用直接翻倍，很容易出现YONG GC和Full Gc的情况</li><li><strong>数据实时性问题</strong> CopyOnWriteArrayList 只能保证最终的数据一致性，读的时候读的还是add前的就对象，不能保证数据实时性。</li></ol><h3 id="HashSet–-gt-gt-CopyOnWriteArraySet-TreeMap–-gt-gt-ConcurrentSkipListSet"><a href="#HashSet–-gt-gt-CopyOnWriteArraySet-TreeMap–-gt-gt-ConcurrentSkipListSet" class="headerlink" title="HashSet–&gt;&gt;CopyOnWriteArraySet  TreeMap–&gt;&gt;ConcurrentSkipListSet"></a>HashSet–&gt;&gt;CopyOnWriteArraySet  TreeMap–&gt;&gt;ConcurrentSkipListSet</h3><p>CopyOnWriteArraySet和CopyOnWriteArrayList实现的方式差不多不再多说</p><p>ConcurrentSkipListSet和ConcurrentSkipListMap有着千丝万缕的关系 之后会详细学这个类 之后再补充</p><h3 id="HashMap–-gt-gt-ConcurrentHashMap-Tree–-gt-gt-ConCurrentSkipListMap"><a href="#HashMap–-gt-gt-ConcurrentHashMap-Tree–-gt-gt-ConCurrentSkipListMap" class="headerlink" title="HashMap–&gt;&gt;ConcurrentHashMap  Tree–&gt;&gt; ConCurrentSkipListMap"></a>HashMap–&gt;&gt;ConcurrentHashMap  Tree–&gt;&gt; ConCurrentSkipListMap</h3><p>明天的学习会重点学习这两个类 </p><p>这两个类的性能和功能都是非常强大的，实际开发使用也很多。</p><p>之后补充。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>今天的21分钟的网课，我翻阅资料了解相关，理解一些理论知识和打通思路用了一个多少小时。能记录的点不多，但是对之后的学习帮助很大。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;ArrayList–-gt-CopyOnWriteArrayList&quot;&gt;&lt;a href=&quot;#ArrayList–-gt-CopyOnWriteArrayList&quot; class=&quot;headerlink&quot; title=&quot;ArrayList–&amp;gt;CopyOnWrit</summary>
+      
+    
+    
+    
+    <category term="java" scheme="http://example.com/categories/java/"/>
+    
+    <category term="多线程" scheme="http://example.com/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>同步容器</title>

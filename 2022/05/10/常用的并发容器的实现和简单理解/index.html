@@ -81,13 +81,15 @@
 
 
 
-<meta name="description" content="无">
-<meta property="og:type" content="website">
-<meta property="og:title" content="wcf">
-<meta property="og:url" content="http://example.com/archives/index.html">
+<meta name="description" content="ArrayList–&gt;CopyOnWriteArrayListCopyOnWriteArrayList 对一些写操作的实现 123456789101112final ReentrantLock lock &#x3D; this.lock;lock.lock();try &amp;#123;    Object[] elements &#x3D; getArray();    int len &#x3D; elements.len">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用的并发容器的实现和简单理解">
+<meta property="og:url" content="http://example.com/2022/05/10/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/index.html">
 <meta property="og:site_name" content="wcf">
-<meta property="og:description" content="无">
+<meta property="og:description" content="ArrayList–&gt;CopyOnWriteArrayListCopyOnWriteArrayList 对一些写操作的实现 123456789101112final ReentrantLock lock &#x3D; this.lock;lock.lock();try &amp;#123;    Object[] elements &#x3D; getArray();    int len &#x3D; elements.len">
 <meta property="og:locale">
+<meta property="article:published_time" content="2022-05-10T11:40:58.000Z">
+<meta property="article:modified_time" content="2022-05-10T12:05:21.357Z">
 <meta property="article:author" content="wucf">
 <meta property="article:tag" content="123123">
 <meta name="twitter:card" content="summary">
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/archives/"/>
+  <link rel="canonical" href="http://example.com/2022/05/10/常用的并发容器的实现和简单理解/"/>
 
 
 
 
 
-  <title>归档 | wcf</title>
+  <title>常用的并发容器的实现和简单理解 | wcf</title>
   
 
 
@@ -145,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -289,411 +291,192 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/10/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wcf">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">常用的并发容器的实现和简单理解</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-10T19:40:58+08:00">
+                2022-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 12 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
 
-      
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
 
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2022">2022</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/05/10/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" itemprop="url">
-              
-                <span itemprop="name">常用的并发容器的实现和简单理解</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-05-10T19:40:58+08:00"
-              content="2022-05-10" >
-          05-10
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/05/09/%E5%90%8C%E6%AD%A5%E5%AE%B9%E5%99%A8/" itemprop="url">
-              
-                <span itemprop="name">同步容器</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-05-09T18:20:00+08:00"
-              content="2022-05-09" >
-          05-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/05/08/%E5%B8%B8%E8%A7%81%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E7%B1%BB%E5%92%8C%E5%86%99%E6%B3%95/" itemprop="url">
-              
-                <span itemprop="name">常见线程不安全类和写法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-05-08T10:14:43+08:00"
-              content="2022-05-08" >
-          05-08
-        </time>
-      </div>
-
-    </header>
-  </article>
+      
+        <h2 id="ArrayList–-gt-CopyOnWriteArrayList"><a href="#ArrayList–-gt-CopyOnWriteArrayList" class="headerlink" title="ArrayList–&gt;CopyOnWriteArrayList"></a>ArrayList–&gt;CopyOnWriteArrayList</h2><p>CopyOnWriteArrayList 对一些写操作的实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="built_in">this</span>.lock;</span><br><span class="line">lock.lock();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Object[] elements = getArray();</span><br><span class="line">    <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> elements.length;</span><br><span class="line">    Object[] newElements = Arrays.copyOf(elements, len + <span class="number">1</span>);</span><br><span class="line">    newElements[len] = e;</span><br><span class="line">    setArray(newElements);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    lock.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+
+<p>首先 会复制一份list的复本，然后在复制的list上进行写操作，最后在把旧的list指向copy的副本。</p>
+<p>同时这些方法是被加锁的。</p>
+<p>读写分离的操作保证了线程的安全性</p>
+<p><strong>缺点</strong>：</p>
+<ol>
+<li><strong>内存占用问题</strong> 每次写操作的时候 都会复制一个新的list，这样内存中会有两个对象，如果原list很大占用内存很大，内存的占用直接翻倍，很容易出现YONG GC和Full Gc的情况</li>
+<li><strong>数据实时性问题</strong> CopyOnWriteArrayList 只能保证最终的数据一致性，读的时候读的还是add前的就对象，不能保证数据实时性。</li>
+</ol>
+<h3 id="HashSet–-gt-gt-CopyOnWriteArraySet-TreeMap–-gt-gt-ConcurrentSkipListSet"><a href="#HashSet–-gt-gt-CopyOnWriteArraySet-TreeMap–-gt-gt-ConcurrentSkipListSet" class="headerlink" title="HashSet–&gt;&gt;CopyOnWriteArraySet  TreeMap–&gt;&gt;ConcurrentSkipListSet"></a>HashSet–&gt;&gt;CopyOnWriteArraySet  TreeMap–&gt;&gt;ConcurrentSkipListSet</h3><p>CopyOnWriteArraySet和CopyOnWriteArrayList实现的方式差不多不再多说</p>
+<p>ConcurrentSkipListSet和ConcurrentSkipListMap有着千丝万缕的关系 之后会详细学这个类 之后再补充</p>
+<h3 id="HashMap–-gt-gt-ConcurrentHashMap-Tree–-gt-gt-ConCurrentSkipListMap"><a href="#HashMap–-gt-gt-ConcurrentHashMap-Tree–-gt-gt-ConCurrentSkipListMap" class="headerlink" title="HashMap–&gt;&gt;ConcurrentHashMap  Tree–&gt;&gt; ConCurrentSkipListMap"></a>HashMap–&gt;&gt;ConcurrentHashMap  Tree–&gt;&gt; ConCurrentSkipListMap</h3><p>明天的学习会重点学习这两个类 </p>
+<p>这两个类的性能和功能都是非常强大的，实际开发使用也很多。</p>
+<p>之后补充。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>今天的21分钟的网课，我翻阅资料了解相关，理解一些理论知识和打通思路用了一个多少小时。能记录的点不多，但是对之后的学习帮助很大。</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/05/07/ThreadLocal%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%B0%81%E9%97%AD/" itemprop="url">
-              
-                <span itemprop="name">ThreadLocal和线程封闭</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-05-07T17:48:34+08:00"
-              content="2022-05-07" >
-          05-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/05/06/%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/" itemprop="url">
-              
-                <span itemprop="name">不可变对象</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-05-06T18:25:55+08:00"
-              content="2022-05-06" >
-          05-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/01/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%85%B3%E7%B3%BB/" itemprop="url">
-              
-                <span itemprop="name">单例模式和线程安全的关系</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-01T15:29:45+08:00"
-              content="2022-03-01" >
-          03-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/19/synchronizd/" itemprop="url">
-              
-                <span itemprop="name">synchronizd</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-19T10:30:53+08:00"
-              content="2022-02-19" >
-          02-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/18/CAS-ConmpareAndSwap/" itemprop="url">
-              
-                <span itemprop="name">CAS(ConmpareAndSwap)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-18T14:59:30+08:00"
-              content="2022-02-18" >
-          02-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/16/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url">
-              
-                <span itemprop="name">多线程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-16T17:10:39+08:00"
-              content="2022-02-16" >
-          02-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/16/%E6%96%B0%E5%8D%9A%E5%AE%A2%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/" itemprop="url">
-              
-                <span itemprop="name">新博客的第一篇文章</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-16T17:03:32+08:00"
-              content="2022-02-16" >
-          02-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/05/09/%E5%90%8C%E6%AD%A5%E5%AE%B9%E5%99%A8/" rel="next" title="同步容器">
+                <i class="fa fa-chevron-left"></i> 同步容器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -701,6 +484,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -721,8 +508,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -789,6 +585,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList%E2%80%93-gt-CopyOnWriteArrayList"><span class="nav-number">1.</span> <span class="nav-text">ArrayList–&gt;CopyOnWriteArrayList</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HashSet%E2%80%93-gt-gt-CopyOnWriteArraySet-TreeMap%E2%80%93-gt-gt-ConcurrentSkipListSet"><span class="nav-number">1.1.</span> <span class="nav-text">HashSet–&gt;&gt;CopyOnWriteArraySet  TreeMap–&gt;&gt;ConcurrentSkipListSet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E2%80%93-gt-gt-ConcurrentHashMap-Tree%E2%80%93-gt-gt-ConCurrentSkipListMap"><span class="nav-number">1.2.</span> <span class="nav-text">HashMap–&gt;&gt;ConcurrentHashMap  Tree–&gt;&gt; ConCurrentSkipListMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -929,6 +741,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
