@@ -81,13 +81,15 @@
 
 
 
-<meta name="description" content="无">
-<meta property="og:type" content="website">
-<meta property="og:title" content="wcf">
-<meta property="og:url" content="http://example.com/categories/suibianxiexie/index.html">
+<meta name="description" content="前言网上aqs相关的文章很多很详细 也很好理解，摘录到文章里，着重记录好理解的概念。  https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;378219920（AQS从原理到很多具体使用 很多常用类都有单独的解析 写的很不错）  https:&#x2F;&#x2F;blog.csdn.net&#x2F;wwwzhouzy&#x2F;article&#x2F;details&#x2F;119702170 ​ ​   什么是AQSAQS 的全称为（Abs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AQS的基础概念">
+<meta property="og:url" content="http://example.com/2022/05/11/AQS%E7%9A%84%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/index.html">
 <meta property="og:site_name" content="wcf">
-<meta property="og:description" content="无">
+<meta property="og:description" content="前言网上aqs相关的文章很多很详细 也很好理解，摘录到文章里，着重记录好理解的概念。  https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;378219920（AQS从原理到很多具体使用 很多常用类都有单独的解析 写的很不错）  https:&#x2F;&#x2F;blog.csdn.net&#x2F;wwwzhouzy&#x2F;article&#x2F;details&#x2F;119702170 ​ ​   什么是AQSAQS 的全称为（Abs">
 <meta property="og:locale">
+<meta property="article:published_time" content="2022-05-11T10:23:01.000Z">
+<meta property="article:modified_time" content="2022-05-11T10:53:15.710Z">
 <meta property="article:author" content="wucf">
 <meta property="article:tag" content="123123">
 <meta name="twitter:card" content="summary">
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/categories/suibianxiexie/"/>
+  <link rel="canonical" href="http://example.com/2022/05/11/AQS的基础概念/"/>
 
 
 
 
 
-  <title>分类: suibianxiexie | wcf</title>
+  <title>AQS的基础概念 | wcf</title>
   
 
 
@@ -145,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -289,55 +291,200 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>suibianxiexie<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/11/AQS%E7%9A%84%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wcf">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2022/02/16/aaa/" itemprop="url">
-              
-                <span itemprop="name">aaa</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">AQS的基础概念</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-16T15:32:35+08:00"
-              content="2022-02-16" >
-          02-16
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-11T18:23:01+08:00">
+                2022-05-11
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>网上aqs相关的文章很多很详细 也很好理解，摘录到文章里，着重记录好理解的概念。</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/378219920%EF%BC%88AQS%E4%BB%8E%E5%8E%9F%E7%90%86%E5%88%B0%E5%BE%88%E5%A4%9A%E5%85%B7%E4%BD%93%E4%BD%BF%E7%94%A8">https://zhuanlan.zhihu.com/p/378219920（AQS从原理到很多具体使用</a> 很多常用类都有单独的解析 写的很不错）</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wwwzhouzy/article/details/119702170">https://blog.csdn.net/wwwzhouzy/article/details/119702170</a></p>
+<p>​</p>
+<p>​</p>
+</li>
+</ol>
+<h2 id="什么是AQS"><a href="#什么是AQS" class="headerlink" title="什么是AQS"></a>什么是AQS</h2><p>AQS 的全称为（AbstractQueuedSynchronizer）</p>
+<p>AQS 是一个用来构建锁和同步器的框架，使用 AQS 能简单且高效地构造出应用广泛的大量的同步器， 比如我们提到的 ReentrantLock，Semaphore，其他的诸如 ReentrantReadWriteLock，SynchronousQueue，FutureTask(jdk1.7) 等等皆是基于 AQS 的。当然，我们自己也能利用 AQS 非常轻松容易地构造出符合我们自己需求的同步器。</p>
+<h3 id="AQS-原理概览"><a href="#AQS-原理概览" class="headerlink" title="AQS 原理概览"></a>AQS 原理概览</h3><p><strong>AQS 核心思想是，如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占用，那么就需要一套线程阻塞等待以及被唤醒 时锁分配的机制，这个机制 AQS 是用</strong> <strong>CLH 队列锁实现的，即将暂时获取不到锁的线程加入到队列中。</strong></p>
+<p>简单总结一下自己的理解，多个线程访问共享数据，通过获取锁的方式，获取到锁的那个线程执行对共享数据的操作，未获取到锁的线程进入到队列中阻塞，等待唤醒。</p>
+<h3 id="AQS定义的两种资源共享方式"><a href="#AQS定义的两种资源共享方式" class="headerlink" title="AQS定义的两种资源共享方式"></a>AQS定义的两种资源共享方式</h3><ol>
+<li><p><strong>Exclusive</strong>（独占）</p>
+<p>字面意思  通过锁的方式 同一时间只有一个线程能执行对共享数据的操作。</p>
+<p>这里涉及到公平锁非公平锁</p>
+<ul>
+<li>公平锁 先到先得  先来的线程 先操作 后续线程一次等待</li>
+<li>非公平锁 线程要获取锁时 先通过cas抢锁，如果没抢到加入队列中等待下一次抢锁。</li>
+</ul>
+</li>
+<li><p><strong>Share</strong>（共享）</p>
+</li>
+</ol>
+<p>​       同样的字面意思，多个线程同时执行，这个之后会详细的根据具体的类学习</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>AQS代码很少 ，需要理解的理论知识很多，也是多线程开发中很重要的一环需要多花点时间理解及翻阅资料。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/05/10/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" rel="next" title="常用的并发容器的实现和简单理解">
+                <i class="fa fa-chevron-left"></i> 常用的并发容器的实现和简单理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -345,6 +492,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -365,8 +516,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -433,6 +593,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFAQS"><span class="nav-number"></span> <span class="nav-text">什么是AQS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AQS-%E5%8E%9F%E7%90%86%E6%A6%82%E8%A7%88"><span class="nav-number">1.</span> <span class="nav-text">AQS 原理概览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AQS%E5%AE%9A%E4%B9%89%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">AQS定义的两种资源共享方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -573,6 +749,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
