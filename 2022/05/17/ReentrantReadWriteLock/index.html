@@ -81,15 +81,15 @@
 
 
 
-<meta name="description" content="同步容器 普通同步容器 Vector 和Stack 及 HashTable Collections.Synchronized***  Vector 和HashTable 这些类 就是 Arraylist 和HashMap 这些类的线程较安全版本 并不是完全安全的。 通过对 add put 这些方法加synchronized的锁来保证一定程度的线程安全性 但是当多个线程对同一个同步容器 进行增删操作">
+<meta name="description" content="ReentrantReadWriteLockReentrantReadWriteLock是读写锁，适用场景为读多写少的场景，当读锁被获取的时候不允许获取写锁。一个线程可以同时获取读写锁，但是要先获取写锁再获取读锁，不然就会死锁 别人的总结ReentrantReadWriteLock 是读写锁，和ReentrantLock会有所不同，对于读多写少的场景使用ReentrantReadWriteLock">
 <meta property="og:type" content="article">
-<meta property="og:title" content="同步容器">
-<meta property="og:url" content="http://example.com/2022/05/09/%E5%90%8C%E6%AD%A5%E5%AE%B9%E5%99%A8/index.html">
+<meta property="og:title" content="ReentrantReadWriteLock">
+<meta property="og:url" content="http://example.com/2022/05/17/ReentrantReadWriteLock/index.html">
 <meta property="og:site_name" content="wcf">
-<meta property="og:description" content="同步容器 普通同步容器 Vector 和Stack 及 HashTable Collections.Synchronized***  Vector 和HashTable 这些类 就是 Arraylist 和HashMap 这些类的线程较安全版本 并不是完全安全的。 通过对 add put 这些方法加synchronized的锁来保证一定程度的线程安全性 但是当多个线程对同一个同步容器 进行增删操作">
+<meta property="og:description" content="ReentrantReadWriteLockReentrantReadWriteLock是读写锁，适用场景为读多写少的场景，当读锁被获取的时候不允许获取写锁。一个线程可以同时获取读写锁，但是要先获取写锁再获取读锁，不然就会死锁 别人的总结ReentrantReadWriteLock 是读写锁，和ReentrantLock会有所不同，对于读多写少的场景使用ReentrantReadWriteLock">
 <meta property="og:locale">
-<meta property="article:published_time" content="2022-05-09T10:20:00.000Z">
-<meta property="article:modified_time" content="2022-05-09T10:39:24.513Z">
+<meta property="article:published_time" content="2022-05-17T11:36:43.000Z">
+<meta property="article:modified_time" content="2022-05-17T11:59:11.102Z">
 <meta property="article:author" content="wucf">
 <meta property="article:tag" content="123123">
 <meta name="twitter:card" content="summary">
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2022/05/09/同步容器/"/>
+  <link rel="canonical" href="http://example.com/2022/05/17/ReentrantReadWriteLock/"/>
 
 
 
 
 
-  <title>同步容器 | wcf</title>
+  <title>ReentrantReadWriteLock | wcf</title>
   
 
 
@@ -305,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/09/%E5%90%8C%E6%AD%A5%E5%AE%B9%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/17/ReentrantReadWriteLock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -322,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">同步容器</h1>
+          <h1 class="post-title" itemprop="name headline">ReentrantReadWriteLock</h1>
         
 
         <div class="post-meta">
@@ -334,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-09T18:20:00+08:00">
-                2022-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-17T19:36:43+08:00">
+                2022-05-17
               </time>
             
 
@@ -405,28 +405,17 @@
       
 
       
-        <h2 id="同步容器"><a href="#同步容器" class="headerlink" title="同步容器"></a>同步容器</h2><ol>
-<li>普通同步容器 Vector 和Stack 及 HashTable</li>
-<li>Collections.Synchronized***</li>
+        <h1 id="ReentrantReadWriteLock"><a href="#ReentrantReadWriteLock" class="headerlink" title="ReentrantReadWriteLock"></a>ReentrantReadWriteLock</h1><p>ReentrantReadWriteLock是读写锁，适用场景为读多写少的场景，当读锁被获取的时候不允许获取写锁。一个线程可以同时获取读写锁，但是要先获取写锁再获取读锁，不然就会死锁</p>
+<h4 id="别人的总结"><a href="#别人的总结" class="headerlink" title="别人的总结"></a>别人的总结</h4><p>ReentrantReadWriteLock 是读写锁，和ReentrantLock会有所不同，对于读多写少的场景使用ReentrantReadWriteLock 性能会比ReentrantLock高出不少。在多线程读时互不影响，不像ReentrantLock即使是多线程读也需要每个线程获取锁。不过任何一个线程在写的时候就和ReentrantLock类似，其他线程无论读还是写都必须获取锁。需要注意的是同一个线程可以拥有 writeLock 与 readLock (但必须先获取 writeLock 再获取 readLock, 反过来进行获取会导致死锁)</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//封装一个map 使用读写锁</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String,String&gt; map =     <span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;String,String&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ReentrantReadWriteLock lock=<span class="keyword">new</span> <span class="title class_">ReentrantReadWriteLock</span>();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span>  String  <span class="title function_">get</span> <span class="params">(String key)</span>&#123;</span><br><span class="line">        lock.readLock().lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> map.get(key);</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.readLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> Set&lt;String&gt; <span class="title function_">getAllKeys</span><span class="params">()</span>&#123;</span><br><span class="line">        lock.readLock().lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span>     map.keySet();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.readLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span>  <span class="title function_">put</span><span class="params">(String key,String value)</span>&#123;</span><br><span class="line">        lock.writeLock().lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            map.put(key,value);</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.writeLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>用map做一个小例子简单理解</p>
+<p>如果实际中读操作远远大于写操作，那么使用ReentrantReadWriteLock就是不合适的，有可能会因为一直在读，写的操作一直无法执行，所以应该在读少写多的时候使用该锁</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>ReentrantReadWriteLock适合读少写多的场景</li>
+<li>ReentrantReadWriteLock使用了读写分离的策略，读操作直接互不影响，有读锁的时候不允许获得写锁。</li>
+<li>ReentrantLock是独占锁，ReentrantReadWriteLock允许多个线程同时获取读锁。</li>
 </ol>
-<p>Vector 和HashTable 这些类 就是 Arraylist 和HashMap 这些类的线程较安全版本 并不是完全安全的。</p>
-<p>通过对 add put 这些方法加synchronized的锁来保证一定程度的线程安全性</p>
-<p>但是当多个线程对同一个同步容器 进行增删操作的时候  同步容器的线程就不安全了（ConcurrentModificationException）会出现这种异常。</p>
-<p>当一个线程对一个同步容器执行遍历操作，另一个线程修改了同步容器的集合长度这时候线程就不再安全了。</p>
-<p>有了这些缺点就有了并发容器juc（明天开学）</p>
-<h2 id="并发容器的优缺点"><a href="#并发容器的优缺点" class="headerlink" title="并发容器的优缺点"></a>并发容器的优缺点</h2><p>优点：不进行复合操作的时候 同步容器操作简单 使用方便  线程安全</p>
-<p>缺点：1.  复合操作时线程不安全</p>
-<pre><code> 2.  使用了synchronized效率低
-
-    3. 快速失败机制
-
-    ​
-</code></pre>
-<h3 id="list遍历操作的小知识点"><a href="#list遍历操作的小知识点" class="headerlink" title="list遍历操作的小知识点"></a>list遍历操作的小知识点</h3><p>在使用 各种list的时候</p>
-<p>foreach 和迭代器遍历的时候，如果进行remove操作会直接报错</p>
-<p>在for循环中则不会</p>
-<p>前两种建议先标识出来循环结束后再做处理    </p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>同步容器的作用微乎其微 ，实际开发中应该也很少使用，效率问题的同时线程并不是完全安全的。不用也罢！ 作为知识储备看看理论得了。</p>
 
       
     </div>
@@ -451,8 +440,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/05/08/%E5%B8%B8%E8%A7%81%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E7%B1%BB%E5%92%8C%E5%86%99%E6%B3%95/" rel="next" title="常见线程不安全类和写法">
-                <i class="fa fa-chevron-left"></i> 常见线程不安全类和写法
+              <a href="/2022/05/16/ReentrantLock%E9%A2%84%E4%B9%A0/" rel="next" title="ReentrantLock预习">
+                <i class="fa fa-chevron-left"></i> ReentrantLock预习
               </a>
             
           </div>
@@ -460,10 +449,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2022/05/10/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%92%8C%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" rel="prev" title="常用的并发容器的实现和简单理解">
-                常用的并发容器的实现和简单理解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -602,7 +587,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E5%AE%B9%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">同步容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">并发容器的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#list%E9%81%8D%E5%8E%86%E6%93%8D%E4%BD%9C%E7%9A%84%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">2.1.</span> <span class="nav-text">list遍历操作的小知识点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.2.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ReentrantReadWriteLock"><span class="nav-number">1.</span> <span class="nav-text">ReentrantReadWriteLock</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%AB%E4%BA%BA%E7%9A%84%E6%80%BB%E7%BB%93"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">别人的总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">1.0.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.0.2.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-05-16T15:34:54.493Z</updated>
+  <updated>2022-05-17T11:59:11.102Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ReentrantReadWriteLock</title>
+    <link href="http://example.com/2022/05/17/ReentrantReadWriteLock/"/>
+    <id>http://example.com/2022/05/17/ReentrantReadWriteLock/</id>
+    <published>2022-05-17T11:36:43.000Z</published>
+    <updated>2022-05-17T11:59:11.102Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="ReentrantReadWriteLock"><a href="#ReentrantReadWriteLock" class="headerlink" title="ReentrantReadWriteLock"></a>ReentrantReadWriteLock</h1><p>ReentrantReadWriteLock是读写锁，适用场景为读多写少的场景，当读锁被获取的时候不允许获取写锁。一个线程可以同时获取读写锁，但是要先获取写锁再获取读锁，不然就会死锁</p><h4 id="别人的总结"><a href="#别人的总结" class="headerlink" title="别人的总结"></a>别人的总结</h4><p>ReentrantReadWriteLock 是读写锁，和ReentrantLock会有所不同，对于读多写少的场景使用ReentrantReadWriteLock 性能会比ReentrantLock高出不少。在多线程读时互不影响，不像ReentrantLock即使是多线程读也需要每个线程获取锁。不过任何一个线程在写的时候就和ReentrantLock类似，其他线程无论读还是写都必须获取锁。需要注意的是同一个线程可以拥有 writeLock 与 readLock (但必须先获取 writeLock 再获取 readLock, 反过来进行获取会导致死锁)</p><h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//封装一个map 使用读写锁</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String,String&gt; map =     <span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;String,String&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ReentrantReadWriteLock lock=<span class="keyword">new</span> <span class="title class_">ReentrantReadWriteLock</span>();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span>  String  <span class="title function_">get</span> <span class="params">(String key)</span>&#123;</span><br><span class="line">        lock.readLock().lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> map.get(key);</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.readLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> Set&lt;String&gt; <span class="title function_">getAllKeys</span><span class="params">()</span>&#123;</span><br><span class="line">        lock.readLock().lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span>     map.keySet();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.readLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span>  <span class="title function_">put</span><span class="params">(String key,String value)</span>&#123;</span><br><span class="line">        lock.writeLock().lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            map.put(key,value);</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.writeLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><p>用map做一个小例子简单理解</p><p>如果实际中读操作远远大于写操作，那么使用ReentrantReadWriteLock就是不合适的，有可能会因为一直在读，写的操作一直无法执行，所以应该在读少写多的时候使用该锁</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol><li>ReentrantReadWriteLock适合读少写多的场景</li><li>ReentrantReadWriteLock使用了读写分离的策略，读操作直接互不影响，有读锁的时候不允许获得写锁。</li><li>ReentrantLock是独占锁，ReentrantReadWriteLock允许多个线程同时获取读锁。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;ReentrantReadWriteLock&quot;&gt;&lt;a href=&quot;#ReentrantReadWriteLock&quot; class=&quot;headerlink&quot; title=&quot;ReentrantReadWriteLock&quot;&gt;&lt;/a&gt;ReentrantReadWriteLo</summary>
+      
+    
+    
+    
+    <category term="java" scheme="http://example.com/categories/java/"/>
+    
+    <category term="多线程" scheme="http://example.com/categories/java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>ReentrantLock预习</title>
